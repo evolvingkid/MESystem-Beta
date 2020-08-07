@@ -8,6 +8,9 @@ For more features and more faster efficient system stay in touch <br/>
 Developer,
 Aka Evolving Kid <br/>
 
+**Important**
+This is a development branch so their maybe incomplete feature or bugs
+
 
 ## how it works?
 This software is under development.
