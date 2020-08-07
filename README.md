@@ -1,8 +1,12 @@
 # MESystem-Beta
-This is Beta version of Management of Exam System
-This version is develop on PHP server where it is beta version. People with PHP server can use this version. <br/>
-For more speed system and feature system wait for the next version running on Node js and it will be having apps both android and ios 
-(Made with Flutter)
+Beta version MESystem has been released. MESystem is a Exam Management system. This release is running on PHP 7 server backend. <br/>
+
+We will be supporting Node JS shortly. Android and iOS apps built on Flutter will be available in future.
+ <br/>
+For more features and more faster efficient system stay in touch <br/>
+
+Developer,
+Aka Evolving Kid <br/>
 
 
 ## how it works?
