@@ -1,0 +1,18 @@
+body {
+    background-color: #EEF8FF;
+}
+
+.sideNavigationBar {
+    width           : 15%;
+    max-width       : 250px;
+    height          : 100vh;
+    background-color: white;
+}
+
+.menuOption {
+    color: #939191;
+}
+
+.navActive {
+    color: #1120A7;
+}
