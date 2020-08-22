@@ -29,12 +29,12 @@ if (isset($_SESSION['userType'])) {
 
 <body>
     <?php
-        include('./navigation/index.php');
+        include('./assets/navigation/index.php');
         mainNavigation($_SESSION['name']);
     ?>
   
   <?php
-        include('./navigation/sideNavigationBar.php');
+        include('./assets/navigation/sideNavigationBar.php');
         sideNavigationBar();
     ?>
 

@@ -21,7 +21,7 @@ function sideNavigationBar()
         </svg>
         Programs
         <div class="innerMenu">
-            <a href="http://">
+            <a href="">
                 <p>
                     Programs
                 </p>
