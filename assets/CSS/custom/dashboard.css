@@ -11,8 +11,24 @@ body {
 
 .menuOption {
     color: #939191;
+    cursor: pointer;
 }
 
 .navActive {
     color: #1120A7;
+}
+
+.innerMenu{
+    display: none;
+    position: absolute;
+    background-color: white;
+    left: 120px;
+    padding: 10px;
+    box-shadow: 0px 4px 10px #D9D8D8; 
+    cursor: pointer;
+}
+
+.menuOptionBar:hover .innerMenu{
+    display: block;
+    cursor: pointer;
 }

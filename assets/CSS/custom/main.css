@@ -16,3 +16,13 @@ html,body{
 .text-dark-blue{
     color: #025888;
 }
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover{
+    text-decoration: none;
+    color: inherit;
+}
