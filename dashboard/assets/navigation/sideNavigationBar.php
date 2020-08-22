@@ -3,7 +3,7 @@
 function sideNavigationBar()
 { ?>
 
-<div class="sideNavigationBar menuOption">
+<div class="sideNavigationBar menuOption float-left">
     <div class="pl-4 pt-5 navActive">
         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bar-chart-fill mr-2" fill="currentColor"
             xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +21,7 @@ function sideNavigationBar()
         </svg>
         Programs
         <div class="innerMenu">
-            <a href="">
+            <a href="./programs/">
                 <p>
                     Programs
                 </p>
