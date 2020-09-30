@@ -4,6 +4,10 @@ session_start();
 ?>
 
 <?php 
+
+$msg = '';
+$errorOccured = FALSE;
+
 if (isset($_POST['login'])) {
   include('./config/SQL/index.php');
   $conn  = mySql();
@@ -31,7 +35,8 @@ if (isset($_POST['login'])) {
       }
     }
   }else{
-    echo "Their is no user";
+    $errorOccured = TRUE;
+    $msg = 'Please check your username and password';
   }
   
 }
@@ -39,17 +44,29 @@ if (isset($_POST['login'])) {
 ?>
 <html lang="en">
 
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MESystem</title>
   <link rel="stylesheet" href="./assets/CSS/bootsrap/bootstrap.min.css">
   <link rel="stylesheet" href="./assets/CSS/custom/main.css">
+  <script src="./assets/JS/bootstrap/jquery.js"></script>
+  <script src="./assets/JS/bootstrap/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
   <div class="container-fluid loginUi">
+<?php
+include('./dashboard/assets/toast/index.php');
+
+if ($errorOccured) {
+  showToastMsg('User login',
+   'Please check your username and password is correct',
+   'Now'
+  );
+}
+?>
+  
     <div class="row">
       <div class="col-md-6 mt-5 pt-5">
         <div class="container mt-5 pt-5 ml-5">
@@ -72,16 +89,11 @@ if (isset($_POST['login'])) {
               <small id="helpId" class="form-text text-muted">Enter your input Password secretly</small>
             </div>
             <input name="login" id="" class="btn btn-primary" type="submit" value="Login">
-
-
           </form>
         </div>
       </div>
     </div>
   </div>
-
-  <script src="./assets/JS/bootstrap/jquery.js"></script>
-  <script src="./assets/JS/bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
