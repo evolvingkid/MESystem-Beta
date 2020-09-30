@@ -1,8 +1,8 @@
 <?php
 function programTable($conn, $isSuperuser = FALSE)
 { 
-    $sql = "SELECT *,(superUser.id)superUserID FROM superUser 
-            LEFT JOIN program ON superUser.id = program.supeerUserID
+    $sql = "SELECT *,(superUser.id)superUserID FROM program
+            LEFT JOIN superUser ON superUser.id = program.supeerUserID
             LEFT JOIN user ON superUser.userid = user.id";
     $result = $conn->query($sql);
     ?>
@@ -46,7 +46,14 @@ function programTable($conn, $isSuperuser = FALSE)
     <?php
      }
             }else{
-                echo "No Data";
+                include('../assets/toast/index.php');
+
+                $toastMsg = 'Sorry you are not Superuser so you cant add new programs';
+                if ($isSuperuser) {
+                    $toastMsg = 'Feel free to add new programs';
+                }
+                showToastMsg('Program', $toastMsg, 'Now');
+
             }
             ?>
 </table>
