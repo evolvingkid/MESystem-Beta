@@ -6,6 +6,45 @@ function programTable($conn, $isSuperuser = FALSE)
             LEFT JOIN user ON superUser.userid = user.id";
     $result = $conn->query($sql);
     ?>
+
+<?php 
+                if ($isSuperuser) { ?>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Add new program </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="">Program Name</label>
+                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Program name">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Add Program</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="float-right mb-2">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Add
+    </button>
+</div>
+<?php  
+}
+?>
 <table class="table bg-white">
     <thead class="bg-primary text-white">
         <tr>
