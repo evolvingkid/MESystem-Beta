@@ -45,11 +45,18 @@ if ($isSuperuser) {
 </div>
 
 
+
 <?php
- 
+
 }
 ?>
 
+ <!--//* program table -->
+<div id="programTable">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
 
 
 <!--  //* edit program-->
@@ -83,12 +90,24 @@ if ($isSuperuser) {
 
 
 
+
+
 <script>
     var programeditId; 
 
-   
-  
-    var isSuperUser = <?php echo $isSuperuser; ?>;
+    var isSuperUser = false;
+    var superUserID = null;
+
+    <?php 
+    
+    if (isset($SuperuserID)) { ?>
+      isSuperUser = true;
+      superUserID = <?php echo $SuperuserID ;?>;
+   <?php  }
+    ?>
+    
+
+    
     function programTableLoad() {
         var url = isSuperUser ? '../programs/acessprogram.php?admin=true' : '../programs/acessprogram.php';
         ajaxController({ docID: 'programTable', url: url });
@@ -108,7 +127,7 @@ if ($isSuperuser) {
 
      function addProgramName() {
         var programdata =  document.getElementById('programName').value;
-        var superUserID = <?php  echo $SuperuserID; ?>;
+      
         var url = `../programs/addnewprogram.php?program=${programdata}&supeerUserID=${superUserID}`;
         ajaxController({url: url}, onFunctiondone);
     }
@@ -124,13 +143,13 @@ if ($isSuperuser) {
 
     function toEditprogram() {
         var programdata =  document.getElementById('editprogramName').value;
-        var superUserID = <?php  echo $SuperuserID; ?>;
+ 
         var url = `../programs/editprogram.php?program=${programdata}&supeerUserID=${superUserID}&programID=${programeditId}`;
         ajaxController({url: url}, onFunctiondone);
     }
 
     function onDelete(id) {
-        var superUserID = <?php  echo $SuperuserID; ?>;
+ 
         var url = `../programs/deleteprogram.php?supeerUserID=${superUserID}&programID=${id}`;
         ajaxController({url: url}, onFunctiondone);
     }
