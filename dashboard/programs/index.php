@@ -40,8 +40,10 @@ if (isset($_SESSION['userType'])) {
     
     <div class="w-75 float-left ml-5 mt-5">
        <?php 
+        echo $_SESSION["userType"];
        // * dont need to initial database because we need it above
        $isUserAdmin = $_SESSION["userType"] == "superUser";
+      
        $userID = $_SESSION['UserID'];
        include('./table.php');
        programTable($conn, $isUserAdmin, $userID);

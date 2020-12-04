@@ -45,18 +45,11 @@ if ($isSuperuser) {
 </div>
 
 
-
 <?php
-
+ 
 }
 ?>
 
- <!--//* program table -->
-<div id="programTable">
-    <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
 
 
 <!--  //* edit program-->
@@ -93,6 +86,8 @@ if ($isSuperuser) {
 <script>
     var programeditId; 
 
+   
+  
     var isSuperUser = <?php echo $isSuperuser; ?>;
     function programTableLoad() {
         var url = isSuperUser ? '../programs/acessprogram.php?admin=true' : '../programs/acessprogram.php';

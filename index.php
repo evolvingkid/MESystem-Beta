@@ -21,7 +21,7 @@ if (isset($_POST['login'])) {
       $_SESSION["password"] = $_POST['password'];
       $_SESSION["UserID"] = $superuserData['SuperUserID'];
       $_SESSION["name"] = $superuserData['name'];
-      header("Location: ./dashboard/");
+     header("Location: ./dashboard/");
     }else{
       include('./config/auth/checkisTeacheruser.php');
       $teacheruserData = checkIsTeacherUser($_POST['username'], $_POST['password'], $conn);
@@ -29,8 +29,9 @@ if (isset($_POST['login'])) {
         $_SESSION["userType"] = "teacher";
         $_SESSION["username"] = $_POST['username'];
         $_SESSION["password"] = $_POST['password'];
-        $_SESSION["UserID"] = $superuserData['teachersUserID'];
         $_SESSION["name"] = $superuserData['name'];
+        $_SESSION["UserID"] = $superuserData['UserID'];
+       
         header("Location: ./dashboard/");
       }
     }
