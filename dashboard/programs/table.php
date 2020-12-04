@@ -1,5 +1,5 @@
 <?php
-function programTable($conn, $isSuperuser = FALSE)
+function programTable($conn, $isSuperuser = FALSE, $SuperuserID)
 { 
     $sql = "SELECT *,(superUser.id)superUserID FROM program
             LEFT JOIN superUser ON superUser.id = program.supeerUserID
@@ -7,95 +7,141 @@ function programTable($conn, $isSuperuser = FALSE)
     $result = $conn->query($sql);
     ?>
 
-<?php 
-                if ($isSuperuser) { ?>
+<?php  
+if ($isSuperuser) {
+ 
+?>
 
+<button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModal">
+  Add Program
+</button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"> Add new program </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <label for="">Program Name</label>
-                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Program name">
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Add Program</button>
-            </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Programs</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="form-group">
+            <label for="exampleInputEmail1">Program name</label>
+            <input type="text" class="form-control" id="programName" aria-describedby="programhelp">
+            <small id="programhelp" class="form-text text-muted">Enter program name</small>
         </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="addProgramName()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<?php
+
+}
+?>
+
+ <!--//* program table -->
+<div id="programTable">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
     </div>
 </div>
 
-<div class="float-right mb-2">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Add
-    </button>
+
+<!--  //* edit program-->
+
+<div class="modal fade" id="editProgram" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Programs</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="form-group">
+            <label for="exampleInputEmail1">Program name</label>
+            <input type="text" class="form-control" id="editprogramName" aria-describedby="programhelp">
+            <small id="programhelp" class="form-text text-muted">Enter program name</small>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="toEditprogram()">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
-<?php  
-}
-?>
-<table class="table bg-white">
-    <thead class="bg-primary text-white">
-        <tr>
-            <th>
-                sino
-            </th>
-            <th>
-                Program Name
-            </th>
-            <th>
-                Created/Edited
-            </th>
-            <th>
 
-            </th>
-        </tr>
-    </thead>
-    <?php
-        if ($result->num_rows > 0) { 
-            while($row = $result->fetch_assoc()) {
-            ?>
-    <tbody>
-        <tr>
-            <td> <?php echo $row['id']; ?> </td>
-            <td> <?php echo $row['program name']; ?> </td>
-            <td> <?php echo $row['name']; ?> </td>
-            <td>
-                <?php 
-                if ($isSuperuser) { ?>
-                <button type="button" name="" id="" class="btn btn-primary" btn-lg btn-block">Edit</button>
-                <button type="button" name="" id="" class="btn btn-danger" btn-lg btn-block">Delete</button>
-                <?php  }
-                ?>
 
-            </td>
-        </tr>
-    </tbody>
-    <?php
-     }
-            }else{
-                include('../assets/toast/index.php');
 
-                $toastMsg = 'Sorry you are not Superuser so you cant add new programs';
-                if ($isSuperuser) {
-                    $toastMsg = 'Feel free to add new programs';
-                }
-                showToastMsg('Program', $toastMsg, 'Now');
+<script>
+    var programeditId; 
 
-            }
-            ?>
-</table>
+    var isSuperUser = <?php echo $isSuperuser; ?>;
+    function programTableLoad() {
+        var url = isSuperUser ? '../programs/acessprogram.php?admin=true' : '../programs/acessprogram.php';
+        ajaxController({ docID: 'programTable', url: url });
+    }
+
+    programTableLoad();
+
+    function onFunctiondone(data) {
+        document.getElementById('programTable').innerHTML = `
+        <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>`;
+        console.log(data);
+        programTableLoad();
+    }
+
+
+     function addProgramName() {
+        var programdata =  document.getElementById('programName').value;
+        var superUserID = <?php  echo $SuperuserID; ?>;
+        var url = `../programs/addnewprogram.php?program=${programdata}&supeerUserID=${superUserID}`;
+        ajaxController({url: url}, onFunctiondone);
+    }
+
+
+
+    function editprogram(id, programName) {
+        console.log('edit program');
+        console.log(programName);
+        programeditId = id;
+        document.getElementById('editprogramName').value = programName;
+    }
+
+    function toEditprogram() {
+        var programdata =  document.getElementById('editprogramName').value;
+        var superUserID = <?php  echo $SuperuserID; ?>;
+        var url = `../programs/editprogram.php?program=${programdata}&supeerUserID=${superUserID}&programID=${programeditId}`;
+        ajaxController({url: url}, onFunctiondone);
+    }
+
+    function onDelete(id) {
+        var superUserID = <?php  echo $SuperuserID; ?>;
+        var url = `../programs/deleteprogram.php?supeerUserID=${superUserID}&programID=${id}`;
+        ajaxController({url: url}, onFunctiondone);
+    }
+   
+</script>
+
 <?php
 }
 ?>

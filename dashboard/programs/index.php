@@ -25,6 +25,7 @@ if (isset($_SESSION['userType'])) {
     <link rel="stylesheet" href="../../assets/CSS/bootsrap/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/CSS/custom/main.css">
     <link rel="stylesheet" href="../../assets/CSS/custom/dashboard.css">
+    <script src="../../assets/JS/ajax/ajax.js"></script>
 </head>
 <body>
     <?php
@@ -41,8 +42,9 @@ if (isset($_SESSION['userType'])) {
        <?php 
        // * dont need to initial database because we need it above
        $isUserAdmin = $_SESSION["userType"] == "superUser";
+       $userID = $_SESSION['UserID'];
        include('./table.php');
-       programTable($conn, $isUserAdmin);
+       programTable($conn, $isUserAdmin, $userID);
        ?>
 
     </div>
