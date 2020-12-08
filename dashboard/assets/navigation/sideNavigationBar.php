@@ -21,16 +21,18 @@ function sideNavigationBar()
         </svg>
         Programs
         <div class="innerMenu">
-            <a href="./programs/">
+            <a href="http://localhost/messystem_beta/dashboard/programs/">
                 <p>
                     Programs
                 </p>
             </a>
            
             <hr/>
+            <a href="http://localhost/messystem_beta/dashboard/course/">
             <p class="">
                 Course
             </p>
+            </a>
         </div>
 
     </div>
