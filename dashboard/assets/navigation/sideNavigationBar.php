@@ -36,6 +36,7 @@ function sideNavigationBar()
         </div>
 
     </div>
+    <a href="http://localhost/messystem_beta/dashboard/examhall/">
     <div class="pl-4 mt-4">
         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bounding-box-circles mr-2"
             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -45,6 +46,7 @@ function sideNavigationBar()
         </svg>
         Exam Hall
     </div>
+    </a>
     <div class="pl-4 mt-4">
         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-lines-fill mr-2" fill="currentColor"
             xmlns="http://www.w3.org/2000/svg">
