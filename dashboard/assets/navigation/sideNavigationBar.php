@@ -56,6 +56,11 @@ function sideNavigationBar()
         Users
     </div>
 
+    <a href="http://localhost/messystem_beta/dashboard/students/">
+        <div class="pl-4 mt-4">
+            Students
+        </div>
+    </a>
 </div>
 <?php    
 }
