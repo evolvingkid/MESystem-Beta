@@ -56,12 +56,12 @@ if (isset($_GET['admin'])) {
             <td> <?php echo $row['program name']; ?> </td>
             <td> <?php echo $row['course_name']; ?> </td>
             <td> <?php echo $row['studentrollnumber']; ?> </td>
-            <td> <?php echo $row['studentrollnumber']; ?> </td>
+            <td> <?php echo $row['name']; ?> </td>
             <td>
                 <?php 
                 if ($isSuperuser) { ?>
-                <button type="button" name="" id="" class="btn btn-primary" data-toggle="modal" data-target="#editProgram" btn-lg btn-block" onclick="editprogram('<?php echo $row['programID']; ?>', '<?php echo $row['program name']; ?>')">Edit</button>
-                <button type="button" name="" id="" class="btn btn-danger" btn-lg btn-block" onclick="onDelete('<?php echo $row['programID']; ?>')">Delete</button>
+                <button type="button" name="" id="" class="btn btn-primary" data-toggle="modal" data-target="#editProgram" btn-lg btn-block" onclick="editprogram('<?php echo $row['studentID']; ?>', '<?php echo $row['studentrollnumber']; ?>', '<?php echo $row['studentName']; ?>')">Edit</button>
+                <button type="button" name="" id="" class="btn btn-danger" btn-lg btn-block" onclick="onDelete('<?php echo $row['studentID']; ?>')">Delete</button>
                 <?php  
                 }
                 ?>

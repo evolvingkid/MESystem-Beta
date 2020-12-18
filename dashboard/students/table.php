@@ -69,7 +69,7 @@ if ($isSuperuser) {
 
         <div class="form-group">
           <label for="my-select">Course</label>
-          <select id="course" class="form-control" name="course">
+          <select id="editcourse" class="form-control" name="course">
           <?php 
           if ($result->num_rows > 0) {
             // output data of each row
@@ -122,11 +122,62 @@ if ($isSuperuser) {
       <div class="modal-body">
         
         <div class="form-group">
-            <label for="exampleInputEmail1">Program name</label>
-            <input type="text" class="form-control" id="editprogramName" aria-describedby="programhelp">
-            <small id="programhelp" class="form-text text-muted">Enter program name</small>
+            <label for="exampleInputEmail1">Student name</label>
+            <input type="text" class="form-control" id="editstudentname" aria-describedby="programhelp">
+            <small id="programhelp" class="form-text text-muted">Enter student name</small>
         </div>
 
+        <div class="form-group">
+            <label for="exampleInputEmail1">Student Rollno</label>
+            <input type="text" class="form-control" id="editstudentrollnumber" aria-describedby="programhelp">
+            <small id="programhelp" class="form-text text-muted">Enter student rollnumber</small>
+        </div>
+
+        <?php 
+          $sql = "SELECT * FROM program";
+          $result = $conn->query($sql);
+        ?>
+        <div class="form-group">
+          <label for="my-select">Program</label>
+          <select id="editprogram" class="form-control" name="program">
+          <?php 
+          if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) { ?>
+              
+              <option value="<?php echo $row['id'] ?>"> <?php echo $row['program name'] ?></option>
+              <?php   }
+       } else {
+            echo "0 results";
+          }
+          
+          ?>
+           
+          </select>
+        </div>
+        
+
+        <?php 
+          $sql = "SELECT * FROM course";
+          $result = $conn->query($sql);
+        ?>
+
+        <div class="form-group">
+          <label for="my-select">Course</label>
+          <select id="course" class="form-control" name="course">
+          <?php 
+          if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) { ?>
+            <option value="<?php echo $row['id'] ?>"><?php echo $row['course_name'] ?></option>
+            <?php   }
+       } else {
+            echo "0 results";
+          }
+          
+          ?>
+          </select>
+        </div>
 
       </div>
       <div class="modal-footer">
@@ -177,8 +228,8 @@ if ($isSuperuser) {
      function addProgramName() {
         var studentName =  document.getElementById('name').value;
         var studentRollNumner = document.getElementById('rollnumber').value;
-        var program =  document.getElementById('program').value;
-        var course =  document.getElementById('course').value;
+        var program =  document.getElementById('editprogram').value;
+        var course =  document.getElementById('editcourse').value;
       
         var url = `../students/create.php?studentname=${studentName}&supeerUserID=${superUserID}&rollno=${studentRollNumner}&programid=${program}&courseid=${course}`;
         ajaxController({url: url}, onFunctiondone);
@@ -186,23 +237,27 @@ if ($isSuperuser) {
 
 
 
-    function editprogram(id, programName) {
-        console.log('edit program');
-        console.log(programName);
+    function editprogram(id, studentname, studetrollnumber) {
+        console.log('edit');
+        console.log(studentname);
         programeditId = id;
-        document.getElementById('editprogramName').value = programName;
+        document.getElementById('editstudentname').value = studetrollnumber;
+        document.getElementById('editstudentrollnumber').value = studentname;
     }
 
     function toEditprogram() {
-        var programdata =  document.getElementById('editprogramName').value;
+      var studentName =  document.getElementById('editstudentname').value;
+        var studentRollNumner = document.getElementById('editstudentrollnumber').value;
+        var program =  document.getElementById('program').value;
+        var course =  document.getElementById('course').value;
  
-        var url = `../programs/editprogram.php?program=${programdata}&supeerUserID=${superUserID}&programID=${programeditId}`;
+        var url = `../students/editstudents.php?studentid=${programeditId}&supeerUserID=${superUserID}&studentname=${studentName}&studentroll=${studentRollNumner}&program=${program}&course=${course}`;
         ajaxController({url: url}, onFunctiondone);
     }
 
     function onDelete(id) {
  
-        var url = `../programs/deleteprogram.php?supeerUserID=${superUserID}&programID=${id}`;
+        var url = `../students/deletestudent.php?supeerUserID=${superUserID}&studentid=${id}`;
         ajaxController({url: url}, onFunctiondone);
     }
    
