@@ -37,6 +37,9 @@ if (isset($_GET['admin'])) {
                 Program
             </th>
             <th>
+                Exam Date
+            </th>
+            <th>
                 Created/Edited
             </th>
             <th>
@@ -54,6 +57,7 @@ if (isset($_GET['admin'])) {
             <td> <?php echo $row['courseID']; ?> </td>
             <td> <?php echo $row['course_name']; ?> </td>
             <td> <?php echo $row['program name']; ?> </td>
+            <td> <?php echo $row['examDate']; ?> </td>
             <td> <?php echo $row['name']; ?> </td>
             <td>
                 <?php 

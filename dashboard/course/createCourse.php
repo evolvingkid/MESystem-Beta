@@ -13,9 +13,11 @@ if (isset($_GET['course'])) {
     $courseID = $_GET['courseid'];
     $superUserID = $_GET['supeerUserID'];
     $programID = $_GET['programid'];
-    
-    $sql = "INSERT INTO course (`course_name`, supeerUserID, programid, id)
-            VALUES ('$courseName', $superUserID, $programID, '$courseID')";
+    $examdate = $_GET['examdate'];
+
+
+    $sql = "INSERT INTO course (`course_name`, supeerUserID, programid, id, examDate)
+            VALUES ('$courseName', $superUserID, $programID, '$courseID', '$examdate')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Program sucessfull added";

@@ -57,6 +57,13 @@ function courseTable($conn, $isSuperuser = FALSE, $SuperuserID)
           </select>
         </div>
 
+        <div class="form-group row">
+          <label for="example-date-input" class="col-3 col-form-label">Exam Date</label>
+         <div class="col-9">
+         <input class="form-control" type="date" value="" id="examDate">
+          </div>
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -171,8 +178,9 @@ function courseTable($conn, $isSuperuser = FALSE, $SuperuserID)
         var coursedata =  document.getElementById('courseName').value;
         var courseid =  document.getElementById('courseid').value;
         var programid = document.getElementById('programType').value;
+        var examDate = document.getElementById('examDate').value;
       
-        var url = `../course/createCourse.php?course=${coursedata}&supeerUserID=${superUserID}&courseid=${courseid}&programid=${programid}`;
+        var url = `../course/createCourse.php?course=${coursedata}&supeerUserID=${superUserID}&courseid=${courseid}&programid=${programid}&examdate=${examDate}`;
         ajaxController({url: url}, onFunctiondone);
   }
 
