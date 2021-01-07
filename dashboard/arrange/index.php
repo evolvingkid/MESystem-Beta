@@ -139,7 +139,7 @@ if (isset($_SESSION['userType'])) {
             <h5> Choose seat Arrangmnet</h5>
 
             <?php
-            $sql = "SELECT * FROM course";
+            $sql = "SELECT DISTINCT examDate FROM course";
             $result = $conn->query($sql);
 
             ?>
@@ -166,7 +166,7 @@ if (isset($_SESSION['userType'])) {
         </form>
 
 
-        <button class="btn btn-success" type="submit">Start Seat Arrangmnet</button>
+        <button class="btn btn-success mt-2" type="submit">Start Seat Arrangmnet</button>
 
     </div>
 
