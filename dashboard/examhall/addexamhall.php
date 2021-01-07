@@ -10,9 +10,10 @@ if (isset($_GET['program'])) {
 
     $programName = $_GET['program'];
     $superUserID = $_GET['supeerUserID'];
+    $totseats = $_GET['seat'];
     
-    $sql = "INSERT INTO examhall (`hallname`, superuser_ID)
-            VALUES ('$programName', $superUserID)";
+    $sql = "INSERT INTO examhall (`hallname`, superuser_ID, seats)
+            VALUES ('$programName', $superUserID, $totseats)";
 
     if ($conn->query($sql) === TRUE) {
         echo "Program sucessfull added";

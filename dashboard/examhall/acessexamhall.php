@@ -32,6 +32,9 @@ if (isset($_GET['admin'])) {
                 Exam hall
             </th>
             <th>
+                seats
+            </th>
+            <th>
             Created/Edited
             </th>
            
@@ -49,6 +52,7 @@ if (isset($_GET['admin'])) {
         <tr>
             <td> <?php echo $row['examID']; ?> </td>
             <td> <?php echo $row['hallname']; ?> </td>
+            <td> <?php echo $row['seats']; ?> </td>
             <td> <?php echo $row['name']; ?> </td>
             <td>
                 <?php 

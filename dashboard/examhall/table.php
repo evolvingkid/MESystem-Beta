@@ -27,6 +27,13 @@ function examHall($conn, $isSuperuser = FALSE, $SuperuserID) {
         </div>
 
 
+        <div class="form-group">
+            <label for="exampleInputEmail1"> Seats </label>
+            <input type="text" class="form-control" id="totseat" aria-describedby="programhelp">
+            <small id="programhelp" class="form-text text-muted">Enter Seat number</small>
+        </div>
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -108,7 +115,8 @@ function examHall($conn, $isSuperuser = FALSE, $SuperuserID) {
 
     function addProgramName() {
         var programdata =  document.getElementById('programName').value;
-        var url = `../examhall/addexamhall.php?program=${programdata}&supeerUserID=${superUserID}`;
+        var tothall =  document.getElementById('totseat').value;
+        var url = `../examhall/addexamhall.php?program=${programdata}&supeerUserID=${superUserID}&seat=${tothall}`;
         ajaxController({url: url}, onFunctiondone);
     }
 
