@@ -1,267 +1,278 @@
 <?php
 function programTable($conn, $isSuperuser = FALSE, $SuperuserID)
-{ 
-    $sql = "SELECT *,(superUser.id)superUserID FROM student LEFT JOIN program ON student.programid = program.id
+{
+  $sql = "SELECT *,(superUser.id)superUserID FROM student LEFT JOIN program ON student.programid = program.id
             LEFT JOIN superUser ON superUser.id = program.supeerUserID
             LEFT JOIN user ON superUser.userid = user.id";
-    $result = $conn->query($sql);
-    ?>
-
-<?php  
-if ($isSuperuser) {
- 
+  $result = $conn->query($sql);
 ?>
 
-<button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModal">
-  Add Students
-</button>
+  <?php
+  if ($isSuperuser) {
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Students</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  ?>
+
+    <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModal">
+      Add Students
+    </button>
+    <a href="./excel/">
+      <button class="btn btn-info" type="button">Export Excel</button>
+    </a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Students</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Students name</label>
+              <input type="text" class="form-control" id="name" aria-describedby="programhelp">
+              <small id="programhelp" class="form-text text-muted">Enter students name</small>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Students RollNo</label>
+              <input type="text" class="form-control" id="rollnumber" aria-describedby="programhelp">
+              <small id="programhelp" class="form-text text-muted">Enter students Rollno</small>
+            </div>
+            <?php
+            $sql = "SELECT * FROM program";
+            $result = $conn->query($sql);
+            ?>
+            <div class="form-group">
+              <label for="my-select">Program</label>
+              <select id="program" class="form-control" name="program">
+                <?php
+                if ($result->num_rows > 0) {
+                  // output data of each row
+                  while ($row = $result->fetch_assoc()) { ?>
+
+                    <option value="<?php echo $row['id'] ?>"> <?php echo $row['program name'] ?></option>
+                <?php   }
+                } else {
+                  echo "0 results";
+                }
+
+                ?>
+
+              </select>
+            </div>
+
+            <?php
+            $sql = "SELECT * FROM course";
+            $result = $conn->query($sql);
+            ?>
+
+            <div class="form-group">
+              <label for="my-select">Course</label>
+              <select id="editcourse" class="form-control" name="course">
+                <?php
+                if ($result->num_rows > 0) {
+                  // output data of each row
+                  while ($row = $result->fetch_assoc()) { ?>
+                    <option value="<?php echo $row['id'] ?>"><?php echo $row['course_name'] ?></option>
+                <?php   }
+                } else {
+                  echo "0 results";
+                }
+
+                ?>
+              </select>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="addProgramName()">Save changes</button>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        
-        <div class="form-group">
-            <label for="exampleInputEmail1">Students name</label>
-            <input type="text" class="form-control" id="name" aria-describedby="programhelp">
-            <small id="programhelp" class="form-text text-muted">Enter students name</small>
-        </div>
+    </div>
 
-        <div class="form-group">
-            <label for="exampleInputEmail1">Students RollNo</label>
-            <input type="text" class="form-control" id="rollnumber" aria-describedby="programhelp">
-            <small id="programhelp" class="form-text text-muted">Enter students Rollno</small>
-        </div>
-        <?php 
-          $sql = "SELECT * FROM program";
-          $result = $conn->query($sql);
-        ?>
-        <div class="form-group">
-          <label for="my-select">Program</label>
-          <select id="program" class="form-control" name="program">
-          <?php 
-          if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) { ?>
-              
-              <option value="<?php echo $row['id'] ?>"> <?php echo $row['program name'] ?></option>
-              <?php   }
-       } else {
-            echo "0 results";
-          }
-          
-          ?>
-           
-          </select>
-        </div>
 
-        <?php 
-          $sql = "SELECT * FROM course";
-          $result = $conn->query($sql);
-        ?>
 
-        <div class="form-group">
-          <label for="my-select">Course</label>
-          <select id="editcourse" class="form-control" name="course">
-          <?php 
-          if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) { ?>
-            <option value="<?php echo $row['id'] ?>"><?php echo $row['course_name'] ?></option>
-            <?php   }
-       } else {
-            echo "0 results";
-          }
-          
-          ?>
-          </select>
-        </div>
+  <?php
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="addProgramName()">Save changes</button>
-      </div>
+  }
+  ?>
+
+  <!--//* program table -->
+  <div id="programTable">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
-</div>
 
 
+  <!--  //* edit program-->
 
-<?php
+  <div class="modal fade" id="editProgram" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Programs</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
 
-}
-?>
-
- <!--//* program table -->
-<div id="programTable">
-    <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-
-
-<!--  //* edit program-->
-
-<div class="modal fade" id="editProgram" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Programs</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        
-        <div class="form-group">
+          <div class="form-group">
             <label for="exampleInputEmail1">Student name</label>
             <input type="text" class="form-control" id="editstudentname" aria-describedby="programhelp">
             <small id="programhelp" class="form-text text-muted">Enter student name</small>
-        </div>
+          </div>
 
-        <div class="form-group">
+          <div class="form-group">
             <label for="exampleInputEmail1">Student Rollno</label>
             <input type="text" class="form-control" id="editstudentrollnumber" aria-describedby="programhelp">
             <small id="programhelp" class="form-text text-muted">Enter student rollnumber</small>
-        </div>
+          </div>
 
-        <?php 
+          <?php
           $sql = "SELECT * FROM program";
           $result = $conn->query($sql);
-        ?>
-        <div class="form-group">
-          <label for="my-select">Program</label>
-          <select id="editprogram" class="form-control" name="program">
-          <?php 
-          if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) { ?>
-              
-              <option value="<?php echo $row['id'] ?>"> <?php echo $row['program name'] ?></option>
-              <?php   }
-       } else {
-            echo "0 results";
-          }
-          
           ?>
-           
-          </select>
-        </div>
-        
+          <div class="form-group">
+            <label for="my-select">Program</label>
+            <select id="editprogram" class="form-control" name="program">
+              <?php
+              if ($result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) { ?>
 
-        <?php 
+                  <option value="<?php echo $row['id'] ?>"> <?php echo $row['program name'] ?></option>
+              <?php   }
+              } else {
+                echo "0 results";
+              }
+
+              ?>
+
+            </select>
+          </div>
+
+
+          <?php
           $sql = "SELECT * FROM course";
           $result = $conn->query($sql);
-        ?>
-
-        <div class="form-group">
-          <label for="my-select">Course</label>
-          <select id="course" class="form-control" name="course">
-          <?php 
-          if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) { ?>
-            <option value="<?php echo $row['id'] ?>"><?php echo $row['course_name'] ?></option>
-            <?php   }
-       } else {
-            echo "0 results";
-          }
-          
           ?>
-          </select>
-        </div>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="toEditprogram()">Save changes</button>
+          <div class="form-group">
+            <label for="my-select">Course</label>
+            <select id="course" class="form-control" name="course">
+              <?php
+              if ($result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) { ?>
+                  <option value="<?php echo $row['id'] ?>"><?php echo $row['course_name'] ?></option>
+              <?php   }
+              } else {
+                echo "0 results";
+              }
+
+              ?>
+            </select>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="toEditprogram()">Save changes</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 
 
 
-<script>
-    var programeditId; 
+  <script>
+    var programeditId;
 
     var isSuperUser = false;
     var superUserID = null;
 
-    <?php 
-    
+    <?php
+
     if (isset($SuperuserID)) { ?>
       isSuperUser = true;
-      superUserID = <?php echo $SuperuserID ;?>;
-   <?php  }
+      superUserID = <?php echo $SuperuserID; ?>;
+    <?php  }
     ?>
-    
 
-    
+
+
     function programTableLoad() {
-        var url = isSuperUser ? '../students/acessTable.php?admin=true' : '../students/acessTable.php';
-        ajaxController({ docID: 'programTable', url: url });
+      var url = isSuperUser ? '../students/acessTable.php?admin=true' : '../students/acessTable.php';
+      ajaxController({
+        docID: 'programTable',
+        url: url
+      });
     }
 
     programTableLoad();
 
     function onFunctiondone(data) {
-        document.getElementById('programTable').innerHTML = `
+      document.getElementById('programTable').innerHTML = `
         <div class="spinner-border text-primary" role="status">
         <span class="sr-only">Loading...</span>
         </div>`;
-        console.log(data);
-        programTableLoad();
+      console.log(data);
+      programTableLoad();
     }
 
 
-     function addProgramName() {
-        var studentName =  document.getElementById('name').value;
-        var studentRollNumner = document.getElementById('rollnumber').value;
-        var program =  document.getElementById('editprogram').value;
-        var course =  document.getElementById('editcourse').value;
-      
-        var url = `../students/create.php?studentname=${studentName}&supeerUserID=${superUserID}&rollno=${studentRollNumner}&programid=${program}&courseid=${course}`;
-        ajaxController({url: url}, onFunctiondone);
+    function addProgramName() {
+      var studentName = document.getElementById('name').value;
+      var studentRollNumner = document.getElementById('rollnumber').value;
+      var program = document.getElementById('editprogram').value;
+      var course = document.getElementById('editcourse').value;
+
+      var url = `../students/create.php?studentname=${studentName}&supeerUserID=${superUserID}&rollno=${studentRollNumner}&programid=${program}&courseid=${course}`;
+      ajaxController({
+        url: url
+      }, onFunctiondone);
     }
 
 
 
     function editprogram(id, studentname, studetrollnumber) {
-        console.log('edit');
-        console.log(studentname);
-        programeditId = id;
-        document.getElementById('editstudentname').value = studetrollnumber;
-        document.getElementById('editstudentrollnumber').value = studentname;
+      console.log('edit');
+      console.log(studentname);
+      programeditId = id;
+      document.getElementById('editstudentname').value = studetrollnumber;
+      document.getElementById('editstudentrollnumber').value = studentname;
     }
 
     function toEditprogram() {
-      var studentName =  document.getElementById('editstudentname').value;
-        var studentRollNumner = document.getElementById('editstudentrollnumber').value;
-        var program =  document.getElementById('program').value;
-        var course =  document.getElementById('course').value;
- 
-        var url = `../students/editstudents.php?studentid=${programeditId}&supeerUserID=${superUserID}&studentname=${studentName}&studentroll=${studentRollNumner}&program=${program}&course=${course}`;
-        ajaxController({url: url}, onFunctiondone);
+      var studentName = document.getElementById('editstudentname').value;
+      var studentRollNumner = document.getElementById('editstudentrollnumber').value;
+      var program = document.getElementById('program').value;
+      var course = document.getElementById('course').value;
+
+      var url = `../students/editstudents.php?studentid=${programeditId}&supeerUserID=${superUserID}&studentname=${studentName}&studentroll=${studentRollNumner}&program=${program}&course=${course}`;
+      ajaxController({
+        url: url
+      }, onFunctiondone);
     }
 
     function onDelete(id) {
- 
-        var url = `../students/deletestudent.php?supeerUserID=${superUserID}&studentid=${id}`;
-        ajaxController({url: url}, onFunctiondone);
+
+      var url = `../students/deletestudent.php?supeerUserID=${superUserID}&studentid=${id}`;
+      ajaxController({
+        url: url
+      }, onFunctiondone);
     }
-   
-</script>
+  </script>
 
 <?php
 }
