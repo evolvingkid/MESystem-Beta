@@ -45,18 +45,18 @@ if (isset($_SESSION['userType'])) {
     <div class="w-75 float-left ml-5 mt-5 bg-white p-3">
         <h5> Export Data from Excel</h5>
         <?php
-        
+
         require('../../../assets/attach_file/phpexcel/Classes/PHPExcel.php');
-    
+
 
         //we can combine this with file upload
         if (empty($_FILES)) { ?>
-            
-		<form method='post' enctype='multipart/form-data' action=''>
-			<input class="form-control p-1"  type='file' name='excel'>
-			<br>
-			<button type='submit' class="btn btn-primary mt-2">Fetch</button>
-        </form>
+
+            <form method='post' enctype='multipart/form-data' action=''>
+                <input class="form-control p-1" type='file' name='excel'>
+                <br>
+                <button type='submit' class="btn btn-primary mt-2">Fetch</button>
+            </form>
 
         <?php
         } else {
@@ -78,18 +78,66 @@ if (isset($_SESSION['userType'])) {
                 //get cells value
                 $id =        $excel->getActiveSheet()->getCell('A' . $i)->getValue();
                 $name =        $excel->getActiveSheet()->getCell('B' . $i)->getValue();
-                $address =    $excel->getActiveSheet()->getCell('C' . $i)->getValue();
-                $phone =    $excel->getActiveSheet()->getCell('D' . $i)->getValue();
+                $program =    $excel->getActiveSheet()->getCell('C' . $i)->getValue();
+                $course =    $excel->getActiveSheet()->getCell('D' . $i)->getValue();
+                $rollNumber =    $excel->getActiveSheet()->getCell('E' . $i)->getValue();
 
                 //echo
                 echo "
 			<tr>
 				<td>" . $id . "</td>
 				<td>" . $name . "</td>
-				<td>" . $address . "</td>
-				<td>" . $phone . "</td>
+				<td>" . $program . "</td>
+                <td>" . $course . "</td>
+                <td>" . $rollNumber . "</td>
 			</tr>
-		";
+        ";
+
+                $isCourseAcess = false;
+                $courseID = 0;
+
+                $sql = "SELECT * FROM course";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+
+                        if (strtolower($row['course_name']) ==  strtolower($course)) {
+                            $isCourseAcess = true;
+                            $courseID = $row['id'];
+                        }
+                    }
+                } else {
+                }
+
+                $isProgramAcess = false;
+                $programID = 0;
+
+                $sql = "SELECT * FROM program";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+
+                        if (strtolower($row['program name']) ==  strtolower($program)) {
+                            $isProgramAcess = true;
+                            $programID = $row['id'];
+                        }
+                    }
+                } else {
+                }
+
+                $sql = "INSERT INTO student (`name`, programid, courseid, studentrollnumber, superuser)
+                VALUES ('$name', $programID, '$courseID', '$rollNumber', 0)";
+
+                if ($conn->query($sql) === TRUE) {
+                    echo "Program sucessfull added";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+
+
+
 
                 //and DON'T FORGET to increment the row pointer ($i)
                 $i++;
